@@ -291,7 +291,7 @@ placeholder:"パネルの大きさを選択"
 
    model:
    {value:this.panelsize,
-    callback:function(e){t.$set(this,"panelsize",e)},
+    callback:function(e){t.panelsize=e},
     expression:"this.panelsize"
    }
   },1
