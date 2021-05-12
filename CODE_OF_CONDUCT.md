@@ -1,0 +1,1 @@
+It isn't supposed that someone who not our student or teacher participate to this project.
