@@ -26,6 +26,10 @@
                 <span class="subheading">Speed</span>
                 <v-spacer></v-spacer>
               </v-toolbar-title>
+              <v-toolbar-title>
+                <span class="subheading">.</span>
+                <v-spacer></v-spacer>
+              </v-toolbar-title>
               <v-row align="center" class="mx-0">
                 <span class="display-3 font-weight-light" v-text="speed"></span>
               </v-row>
@@ -49,8 +53,25 @@
                 <span class="subheading">Color</span>
                 <v-spacer></v-spacer>
               </v-toolbar-title>
+              <v-toolbar-title>
+                <span class="subheading">.</span>
+                <v-spacer></v-spacer>
+              </v-toolbar-title>
               <v-row align="center" class="mx-0">
                 <v-color-picker dot-size="25" canvas-height="300" swatches-max-height="200" v-model="rgb" show-swatches></v-color-picker>
+              </v-row>
+              <v-toolbar-title>
+                <span class="subheading">.</span>
+                <v-spacer></v-spacer>
+              </v-toolbar-title>
+              <v-toolbar-title>
+                <span class="subheading">Gradation</span>
+              </v-toolbar-title>
+              <v-row align="center" class="mx-0">
+                <v-switch v-model="gradationFlag"></v-switch>
+              </v-row>
+              <v-row align="center" class="mx-0">
+                <v-color-picker dot-size="25" canvas-height="300" swatches-max-height="200" v-model="rgb2" show-swatches></v-color-picker>
               </v-row>
             </v-card-text>
           </v-card>
@@ -74,8 +95,10 @@ export default {
     types: ['hex', 'rgb', 'hsl', 'hsv'],
     type: 'hex',
     rgb: { r: 0, g: 0, b: 255 },
+    rgb2: { r: 0, g: 0, b: 255 },
     search: '',
     loopFlag: true,
+    gradationFlag: false,
     status: ''
   }),
   methods: {
@@ -125,6 +148,8 @@ export default {
         console.log('すぴ' + this.status.speed)
         this.speed = 100 - this.status.speed
         this.rgb = this.status.colors
+        this.rgb2 = this.status.colors2
+        this.gradationFlag = this.status.gradationFlag
       })
     this.$watch('speed', function () {
       this.axios.post('/api/update/speed', {
@@ -138,6 +163,20 @@ export default {
         colors: this.rgb
       })
         .then((res) => console.log('DoneColor: ' + res.data))
+        .catch((e) => alert(e))
+    })
+    this.$watch('rgb2', function () {
+      this.axios.post('/api/update/colors2', {
+        colors2: this.rgb2
+      })
+        .then((res) => console.log('DoneColor2: ' + res.data))
+        .catch((e) => alert(e))
+    })
+    this.$watch('gradationFlag', function () {
+      this.axios.post('/api/update/gradationFlag', {
+        gradationFlag: this.gradationFlag
+      })
+        .then((res) => console.log('DoneGraFlag: ' + res.data))
         .catch((e) => alert(e))
     })
     this.loading = false
