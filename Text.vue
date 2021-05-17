@@ -19,6 +19,12 @@
             hide-details
             hide-no-data>
           </v-autocomplete>
+          <v-overflow-btn
+            v-model="this.panelsize"
+            :items="this.panellist"
+            item-text="body"
+            placeholder="パネルを入力">
+          </v-overflow-btn>
           <v-card class="mx-auto my-12">
             <v-card-title>Settings</v-card-title>
             <v-card-text>
@@ -96,6 +102,8 @@ export default {
     type: 'hex',
     rgb: { r: 0, g: 0, b: 255 },
     rgb2: { r: 0, g: 0, b: 255 },
+    panellist: ['32*16', '32*32'],
+    panelsize: '',
     search: '',
     loopFlag: true,
     gradationFlag: false,
