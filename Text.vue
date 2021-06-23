@@ -19,12 +19,21 @@
             hide-details
             hide-no-data>
           </v-autocomplete>
-          <v-overflow-btn
-            v-model="this.panelsize"
-            :items="this.panellist"
-            item-text="body"
-            placeholder="パネルを入力">
-          </v-overflow-btn>
+          <v-radio-group
+           v-model="panelsize"
+           mandatory>
+           <v-radio
+            label="16"
+            value="16">
+           </v-radio>
+           <v-radio
+            label="32"
+            value="32">
+           </v-radio>
+          </v-radio-group>
+          <v-row align="center" class="mx-0">
+           <span class="display-3 font-weight-light" v-text="panelsize"></span>
+          </v-row>
           <v-card class="mx-auto my-12">
             <v-card-title>Settings</v-card-title>
             <v-card-text>
@@ -102,8 +111,8 @@ export default {
     type: 'hex',
     rgb: { r: 0, g: 0, b: 255 },
     rgb2: { r: 0, g: 0, b: 255 },
-    panellist: ['32*16', '32*32'],
-    panelsize: '',
+    panellist: [16, 32],
+    panelsize: 0,
     search: '',
     loopFlag: true,
     gradationFlag: false,
@@ -125,6 +134,11 @@ export default {
       console.log(this.$refs.hist)
       console.log(body)
       this.textbox = body
+    },
+    SizeChoose: function (body2) {
+      console.log(this.$refs.hist)
+      console.log(body2)
+      this.panelsize = body2
     },
     overHistory: function (id) {
       console.log(id)
