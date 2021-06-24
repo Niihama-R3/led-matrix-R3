@@ -109,17 +109,17 @@ async function stringLength (string) {
 }
 
 async function main() {
-    matrix = new LedMatrix(16, 32, 1, 3, 50, 'adafruit-hat' );
     fontpath =  path.resolve(__dirname, '..')+'/fonts/'+'ufo.bdf';
     let colors = { r:255, g:255, b:255 };
     let colors2 = { r:255, g:255, b:255 };
     let colors3 = { r:0, g:0, b:0 };
     let speed = 50;
-    let cur = 0;
-    let cur2 = 0;
+    let panelsize = 0;
     let isAvailavle = true;
     let gradationFlag = false;
     let pause = false;
+    let cur = 0;
+    let cur2 = 0;
     
     const con = mysql.createConnection({
         host: 'localhost',
@@ -147,6 +147,12 @@ async function main() {
     exports.index = async function (req, res) {
         if (interruptRejector(isAvailavle, res) == -1) { 
             return -1;
+        }
+        if (panelsize == 32) {
+            matrix = new LedMatrix(32, 32, 1, 3, 50, 'adafruit-hat' );
+        }
+        else {
+            matrix = new LedMatrix(16, 32, 1, 3, 50, 'adafruit-hat' );
         }
         res.send('text show');
         let text = req.body.text;
@@ -200,6 +206,12 @@ async function main() {
         colors2 = req.body.colors2;
         console.log(colors2);
         res.send('got: ' + colors2);
+    }
+    
+    exports.panelsize = function(req, res) {
+        panelsize = req.body.panelsize;
+        console.log(panelsize);
+        res.send('got: ' + panelsize);
     }
     
     exports.gradationFlag = function(req, res) {
@@ -321,6 +333,7 @@ async function main() {
             loop: false,
             colors: colors,
             colors2: colors2,
+            panelsize: panelsize,
             gradationFlag: gradationFlag,
             isAvailavle: isAvailavle
         });

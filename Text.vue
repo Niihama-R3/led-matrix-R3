@@ -24,11 +24,11 @@
            mandatory>
            <v-radio
             label="16"
-            value="16">
+            value=16>
            </v-radio>
            <v-radio
             label="32"
-            value="32">
+            value=32>
            </v-radio>
           </v-radio-group>
           <v-row align="center" class="mx-0">
@@ -111,8 +111,7 @@ export default {
     type: 'hex',
     rgb: { r: 0, g: 0, b: 255 },
     rgb2: { r: 0, g: 0, b: 255 },
-    panellist: [16, 32],
-    panelsize: 0,
+    panelsize: 16,
     search: '',
     loopFlag: true,
     gradationFlag: false,
@@ -171,6 +170,7 @@ export default {
         this.speed = 100 - this.status.speed
         this.rgb = this.status.colors
         this.rgb2 = this.status.colors2
+        this.panelsize = this.status.panelsize
         this.gradationFlag = this.status.gradationFlag
       })
     this.$watch('speed', function () {
@@ -192,6 +192,13 @@ export default {
         colors2: this.rgb2
       })
         .then((res) => console.log('DoneColor2: ' + res.data))
+        .catch((e) => alert(e))
+    })
+    this.$watch('panelsize', function () {
+      this.axios.post('/api/update/panelsize', {
+        panelsize: this.panelsize
+      })
+        .then((res) => console.log('Donepanelsize: ' + res.data))
         .catch((e) => alert(e))
     })
     this.$watch('gradationFlag', function () {

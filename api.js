@@ -11,6 +11,7 @@ router.post('/show/text', api_controller.index);
 router.post('/update/colors', api_controller.colors);
 router.post('/update/colors2', api_controller.colors2);
 router.post('/update/speed', api_controller.speed);
+router.post('/update/panelsize', api_controller.panelsize);
 router.post('/update/gradationFlag', api_controller.gradationFlag);
 router.post('/update/feed', api_controller.updateFeed);
 router.post('/update/phrase', api_controller.updatePhrase);
