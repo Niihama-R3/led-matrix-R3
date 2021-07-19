@@ -58,36 +58,35 @@
                   </template>
                 </v-slider>
                </v-row>
-                <v-row>
+
+               <v-toolbar-title>
+                <span class="subheading">Loop</span>
+               </v-toolbar-title>
+               <v-row align="center" class="mx-0">
+                <v-switch v-model="loopFlag"></v-switch>
+               </v-row>
+               <v-toolbar-title>
+                <span class="subheading">Gradation</span>
+               </v-toolbar-title>
+               <v-row align="center" class="mx-0">
+                <v-switch v-model="gradationFlag"></v-switch>
+               </v-row>
+               <v-row justify="space-around">
+                <v-responsive :aspect-ratio="8/9">
                  <v-toolbar-title>
-                  <span class="subheading">Loop</span>
-                 </v-toolbar-title>
-                 <v-row align="center" class="mx-0">
-                  <v-switch v-model="loopFlag"></v-switch>
-                 </v-row>
-                 <v-toolbar-title>
-                  <span class="subheading">Gradation</span>
-                 </v-toolbar-title>
-                 <v-row align="center" class="mx-0">
-                  <v-switch v-model="gradationFlag"></v-switch>
-                 </v-row>
-                </v-row>
-                <v-row>
-                 <v-toolbar-title>
-                  <span class="subheading">First Color.</span>
+                  <span class="subheading">First Color</span>
                   <v-spacer></v-spacer>
                  </v-toolbar-title>
-                 <v-row align="center" class="mx-0">
-                  <v-color-picker dot-size="25" canvas-height="300" swatches-max-height="200" v-model="rgb" show-swatches></v-color-picker>
-                 </v-row>
+                 <v-color-picker dot-size="25" canvas-height="300" swatches-max-height="200" v-model="rgb" show-swatches></v-color-picker>
+                </v-responsive>
+                <v-responsive :aspect-ratio="8/9">
                  <v-toolbar-title>
-                  <span class="subheading">Second Color.</span>
+                  <span class="subheading">Second Color</span>
                   <v-spacer></v-spacer>
                  </v-toolbar-title>
-                 <v-row align="center" class="mx-0">
-                  <v-color-picker dot-size="25" canvas-height="300" swatches-max-height="200" v-model="rgb2" show-swatches></v-color-picker>
-                 </v-row>
-                </v-row>
+                 <v-color-picker dot-size="25" canvas-height="300" swatches-max-height="200" v-model="rgb2" show-swatches></v-color-picker>
+                 </v-responsive>
+               </v-row>
             </v-card-text>
           </v-card>
         </v-col>
