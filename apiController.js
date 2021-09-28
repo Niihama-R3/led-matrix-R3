@@ -187,7 +187,7 @@ async function main() {
                 cur2 = cur2 - 12;
             }
             console.log(x);
-            await sleep(speed);
+            await sleep((100 - speed) * (100 - speed) / 100);
             if (x+width < 0) {
                 x = xorig
             }
@@ -310,7 +310,6 @@ async function main() {
 
     exports.speed = function (req, res) {
         speed = req.body.speed;
-        speed = 100 - speed;
         console.log(speed);
         res.send('got: ' + speed)
     }
