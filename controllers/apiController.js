@@ -76,7 +76,6 @@ async function stringLength (string) {
             fontdata = data.split('\n');
             code = text.charCodeAt();
             // res.send(text);
-    
             // GETで入力された文字列から1文字ずつ文字コードを取得して、textCode配列に格納する
             for (let i=0; i<text.length; i++) {
                 code = text.charCodeAt(i);
@@ -106,6 +105,19 @@ async function stringLength (string) {
             resolve(result);
         });
     });
+}
+
+async function stringLength2 (string) {
+    let width=0;
+    for (let i=0; i<string.length; i++){
+        if(' '<=string[i]&&string[i]<='}'){
+            width+=8;
+        }
+        else{
+            width+=16;
+        }
+    }
+    return width;
 }
 
 async function main() {
@@ -157,7 +169,7 @@ async function main() {
         res.send('text show');
         let text = req.body.text;
         console.log(text + 'ttt')
-        let width = await stringLength(text);
+        let width = await stringLength2(text);
         //let width = getTextWidth(text);
         console.log("Width: " + width);
         let x = matrix.getWidth();
@@ -187,7 +199,7 @@ async function main() {
                 cur2 = cur2 - 12;
             }
             console.log(x);
-            await sleep((100 - speed) * (100 - speed) / 100);
+            await sleep(1000 / speed);
             if (x+width < 0) {
                 x = xorig
             }
