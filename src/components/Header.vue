@@ -43,6 +43,16 @@
             <v-list-item-title>Video</v-list-item-title>
           </v-list-item-content>
         </router-link>
+        <router-link tag="v-list-item" to="/effect" link>
+          <v-list-item-content>
+            <v-list-item-title>Effect</v-list-item-title>
+          </v-list-item-content>
+        </router-link>
+        <router-link tag="v-list-item" to="/free" link>
+          <v-list-item-content>
+            <v-list-item-title>Free</v-list-item-title>
+          </v-list-item-content>
+        </router-link>
       </v-list>
     </v-navigation-drawer>
     <v-app-bar app>

@@ -170,18 +170,15 @@ async function main() {
         let text = req.body.text;
         console.log(text + 'ttt')
         let width = await stringLength2(text);
-        //let width = getTextWidth(text);
         console.log("Width: " + width);
         let x = matrix.getWidth();
         let xorig = x
         insertHistory(con, text);
         isAvailavle = false;
-        while (x+width >= 0) {
+        while (isAvailavle == false) {
             matrix.clear();
-            if (isAvailavle == true) {
-                break;
-            }
             if (gradationFlag == true){
+                cur2 = cur2 - 12;
                 if (cur2 < -254) {cur2 = 255;}
                 cur = cur2;
                 if (cur < 0) {cur = cur2 * -1;}
@@ -194,18 +191,35 @@ async function main() {
                 matrix.drawText(x, 0, text, fontpath, colors.r, colors.g, colors.b);
             }
             matrix.update();
-            if (pause === false) {
-                x--;
-                cur2 = cur2 - 12;
-            }
+            if (pause === false) {x--;}
             console.log(x);
             await sleep(1000 / speed);
-            if (x+width < 0) {
-                x = xorig
-            }
+            if (x+width < 0) {x = xorig;}
         }
         isAvailavle = true;
         console.log('done: '+text);
+    }
+
+    exports.FlowingLine = async function (req, res) {
+        if (interruptRejector(isAvailavle, res) == -1) { 
+            return -1;
+        }
+        matrix = new LedMatrix(16, 32, 1, 3, 50, 'adafruit-hat' );
+        res.send('Flowing Line');
+        let text = req.body.text;
+        let PTime = 0;
+        let x = -1;
+        while (PTime<1020) {
+            matrix.clear();
+            // 96*(PTime-1000)*(PTime-1000)/1000000-1
+            // 1000,-1 0,95
+            if(PTime<999){x = 96*(PTime-1000)*(PTime-1000)/1000000-1;}
+            else{x = -1;}
+            matrix.drawLine(x, 0, x, 15, 255, 0, 0);
+            matrix.update();
+            await sleep(17);
+            PTime += 17;
+        }
     }
 
     exports.colors = function(req, res) {

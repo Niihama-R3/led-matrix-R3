@@ -6,6 +6,7 @@ import Phrase from '../components/text/Phrase.vue'
 import Rss from '../components/text/Rss.vue'
 import Image from '../components/Image.vue'
 import Video from '../components/Video.vue'
+import Effect from '../components/Effect.vue'
 import Free from '../components/free.vue'
 import NotFound from '../components/NotFound.vue'
 import VModal from 'vue-js-modal'
@@ -59,6 +60,13 @@ export default new Router({
       component: Video,
       meta: {
         title: 'Video'
+      }
+    },
+    {
+      path: '/effect',
+      component: Effect,
+      meta: {
+        title: 'Effect'
       }
     },
     {
