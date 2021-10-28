@@ -207,10 +207,12 @@ async function main() {
         matrix = new LedMatrix(16, 32, 1, 3, 50, 'adafruit-hat' );
         res.send('Flowing Line');
         let num = req.body.Line_Num;
+        let ATime = req.body.Line_Time*100;
+        if(num==1){ATime=1000}
         let PTime = 0;
         let LTime = 0;
         let x = -1;
-        while (PTime<870+num*150) {
+        while (PTime<ATime+20) {
             matrix.clear();
             // 96*(PTime-1000)*(PTime-1000)/1000000-1
             // 1000,-1 0,95
@@ -219,7 +221,7 @@ async function main() {
                 if(-1<LTime&&LTime<1000){x = 96*(LTime-1000)*(LTime-1000)/1000000-1;}
                 else{x = -1;}
                 matrix.drawLine(x, 0, x, 15, 255, 0, 0);
-                LTime-=150;
+                if(num!=1){LTime-=(ATime-1000)/(num-1);}
             }
             matrix.update();
             await sleep(17);
