@@ -208,19 +208,32 @@ async function main() {
         res.send('Flowing Line');
         let num = req.body.Line_Num;
         let ATime = req.body.Line_Time*100;
+        let Arrow = req.body.Line_Arrow;
+        // 0:RtoL 1:LtoR 2:DtoU 3:UtoD
         if(num==1){ATime=1000}
         let PTime = 0;
         let LTime = 0;
         let x = -1;
         while (PTime<ATime+20) {
             matrix.clear();
-            // 96*(PTime-1000)*(PTime-1000)/1000000-1
             // 1000,-1 0,95
+            // 1000,96 0,0
+            // 1000,-1 0,15
+            // 1000,16 0,0
+            // -96/1000000*(x-1000)*(x-1000)+95
             LTime = PTime;
             for(let i=0; i<num; i++){
-                if(-1<LTime&&LTime<1000){x = 96*(LTime-1000)*(LTime-1000)/1000000-1;}
+                if(Arrow==0&&-1<LTime&&LTime<1000){x = 96*(LTime-1000)*(LTime-1000)/1000000-1;}
+                else if(Arrow==1&&-1<LTime&&LTime<1000){x = -96*(LTime-1000)*(LTime-1000)/1000000+96;}
+                else if(Arrow==2&&-1<LTime&&LTime<1000){x = 16*(LTime-1000)*(LTime-1000)/1000000-1;}
+                else if(Arrow==3&&-1<LTime&&LTime<1000){x = -16*(LTime-1000)*(LTime-1000)/1000000+16;}
                 else{x = -1;}
-                matrix.drawLine(x, 0, x, 15, 255, 0, 0);
+                if(Arrow==0||Arrow==1){matrix.drawLine(x, 0, x, 15, 255, 0, 0);}
+                else if(Arrow==2||Arrow==3){matrix.drawLine(0, x, 95, x, 255, 0, 0);}
+                else{
+                    res.send('Arrow mode error');
+                    break;
+                }
                 if(num!=1){LTime-=(ATime-1000)/(num-1);}
             }
             matrix.update();
