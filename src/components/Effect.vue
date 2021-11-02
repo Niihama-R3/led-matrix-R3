@@ -33,6 +33,7 @@
     <v-slider min="20" max="50" v-model="Line_Time"></v-slider>
    </div>
   </v-row>
+  <v-color-picker dot-size="25" canvas-height="300" swatches-max-height="200" v-model="rgb" show-swatches></v-color-picker>
  </v-container>
 </template>
 
@@ -41,14 +42,16 @@ export default {
   data: () => ({
     Line_Num: 1,
     Line_Time: 20,
-    Line_Arrow: 0
+    Line_Arrow: 0,
+    rgb: { r: 0, g: 0, b: 255 }
   }),
   methods: {
     test: function () {
       this.axios.post('/api/show/FlowingLine', {
         Line_Num: this.Line_Num,
         Line_Time: this.Line_Time,
-        Line_Arrow: this.Line_Arrow
+        Line_Arrow: this.Line_Arrow,
+        Line_Color: this.rgb
       })
         .then((res) => console.log(res.data))
         .catch((e) => alert('AAA' + e.response.status))
