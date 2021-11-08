@@ -239,7 +239,116 @@ async function main() {
         matrix.clear();
         matrix.update();
     }
+    
+    exports.FillingBoard = async function (req, res) {
+        if (interruptRejector(isAvailavle, res) == -1) { 
+            return -1;
+        }
+        matrix = new LedMatrix(16, 32, 1, 3, 50, 'adafruit-hat' );
+        res.send('Filling Board');
+        let F_In = req.body.Fill_In;
+        let F_Out = req.body.Fill_Out;
+        let Color = req.body.Fill_Color;
+        let Time = 0;
+        let x = 0;
+        while(Time<=1000){
+            //0,95 1000,0
+            //-95/1000*(x)+95
+            matrix.clear();
+            if(F_In==0){
+                x=-95/1000*Time+95;
+                while(x<=96){
+                    matrix.drawLine(x, 0, x, 15, Color.r, Color.g, Color.b);
+                    x++;
+                }
+            }
+            if(F_In==1){
+                x=95/1000*Time;
+                while(x>=0){
+                    matrix.drawLine(x, 0, x, 15, Color.r, Color.g, Color.b);
+                    x--;
+                }
+            }
+            if(F_In==2){
+                x=-15/1000*Time+15;
+                while(x<=16){
+                    matrix.drawLine(0, x, 95, x, Color.r, Color.g, Color.b);
+                    x++;
+                }
+            }
+            if(F_In==3){
+                x=15/1000*Time;
+                while(x>=0){
+                    matrix.drawLine(0, x, 95, x, Color.r, Color.g, Color.b);
+                    x--;
+                }
+            }
+            matrix.update();
+            await sleep(17);
+            Time+=17;
+        }
+        Time=0;
+        while(Time<=1000){
+            //0,0 1000,95
+            matrix.clear();
+            if(F_Out==0){
+                x=95/1000*Time;
+                while(x<=96){
+                    matrix.drawLine(x, 0, x, 15, Color.r, Color.g, Color.b);
+                    x++;
+                }
+            }
+            if(F_Out==1){
+                x=-95/1000*Time+95;
+                while(x>=0){
+                    matrix.drawLine(x, 0, x, 15, Color.r, Color.g, Color.b);
+                    x--;
+                }
+            }
+            if(F_Out==2){
+                x=15/1000*Time;
+                while(x<=16){
+                    matrix.drawLine(0, x, 95, x, Color.r, Color.g, Color.b);
+                    x++;
+                }
+            }
+            if(F_Out==3){
+                x=-15/1000*Time+15;
+                while(x>=0){
+                    matrix.drawLine(0, x, 95, x, Color.r, Color.g, Color.b);
+                    x--;
+                }
+            }
+            matrix.update();
+            await sleep(17);
+            Time+=17;
+        }
+        matrix.clear();
+        matrix.update();
+    }
 
+    exports.ZoomCircle = async function (req, res) {
+        if (interruptRejector(isAvailavle, res) == -1) { 
+            return -1;
+        }
+        matrix = new LedMatrix(16, 32, 1, 3, 50, 'adafruit-hat' );
+        res.send('Zoom Circle');
+        let Color = req.body.Zoom_Color;
+        let Time = 0;
+        let x = 0;
+        while(Time<=1000){
+            //0,0 1000,30
+            matrix.clear();
+            x = 33/500*Time;
+            matrix.drawCircle(48, 8, x, Color.r, Color.g, Color.b);
+            matrix.update();
+            await sleep(17);
+            Time += 17;
+        }
+        matrix.clear();
+        matrix.update();
+    }
+    
     exports.colors = function(req, res) {
         colors = req.body.colors;
         console.log(colors);
