@@ -348,6 +348,80 @@ async function main() {
         matrix.clear();
         matrix.update();
     }
+
+    exports.SimpleString = async function (req, res) {
+        if (interruptRejector(isAvailavle, res) == -1) { 
+            return -1;
+        }
+        matrix = new LedMatrix(16, 32, 1, 3, 50, 'adafruit-hat' );
+        res.send('Simple String');
+        let Text = req.body.Text;
+        let Color = req.body.Color;
+        matrix.clear();
+        matrix.drawText(0, 0, Text, fontpath, Color.r, Color.g, Color.b);
+        matrix.update();
+        await sleep(1000);
+        matrix.clear();
+        matrix.update();
+    }
+
+    exports.FlashString = async function (req, res) {
+        if (interruptRejector(isAvailavle, res) == -1) { 
+            return -1;
+        }
+        matrix = new LedMatrix(16, 32, 1, 3, 50, 'adafruit-hat' );
+        res.send('Simple String');
+        let Text = req.body.Text;
+        let Color = req.body.Color;
+        for(let i=0;i<4;i++){
+            matrix.clear();
+            matrix.drawText(0, 0, Text, fontpath, Color.r, Color.g, Color.b);
+            matrix.update();
+            await sleep(250);
+            matrix.clear();
+            matrix.update();
+            await sleep(250);
+        }
+        matrix.clear();
+        matrix.update();
+    }
+
+    exports.FadeString = async function (req, res) {
+        if (interruptRejector(isAvailavle, res) == -1) { 
+            return -1;
+        }
+        matrix = new LedMatrix(16, 32, 1, 3, 50, 'adafruit-hat' );
+        res.send('Simple String');
+        let Text = req.body.Text;
+        let Color = req.body.Color;
+        let Color2 = { r:0, g:0, b:0 };
+        let Time = 0;
+        while(Time<=1000){
+            matrix.clear();
+            Color2.r=Color.r*Time/1000;
+            Color2.g=Color.g*Time/1000;
+            Color2.b=Color.b*Time/1000;
+            matrix.drawText(0, 0, Text, fontpath, Color2.r, Color2.g, Color2.b);
+            matrix.update();
+            await sleep(17);
+            Time+=17;
+        }
+        Time = 0;
+        while(Time<=1000){
+            //0,color 1000,0
+            //-color/1000*time+color
+            Color2.r=-Color.r*Time/1000+Color.r;
+            Color2.g=-Color.g*Time/1000+Color.g;
+            Color2.b=-Color.b*Time/1000+Color.b;
+            matrix.clear();
+            matrix.drawText(0, 0, Text, fontpath, Color2.r, Color2.g, Color2.b);
+            matrix.update();
+            await sleep(17);
+            Time+=17;
+        }
+        matrix.clear();
+        matrix.update();
+    }
     
     exports.colors = function(req, res) {
         colors = req.body.colors;

@@ -1,8 +1,42 @@
 <template>
  <v-container>
+  <v-text-field
+   v-model="text">
+  </v-text-field>
   <v-row justify="space-around">
    <v-responsive :aspect-ratio="13/9">
     <div>
+     <v-row justify="space-around">
+      <v-toolbar-title>
+       <span class="subhaeding">String Item</span>
+      </v-toolbar-title>
+     </v-row>
+     <v-row justify="space-around">
+      <v-btn
+       elevation="2"
+       @click="SimpleString">
+       Simple
+      </v-btn>
+     </v-row>
+     <v-row justify="space-around">
+      <v-btn
+       elevation="2"
+       @click="FlashString">
+       Flash
+      </v-btn>
+     </v-row>
+     <v-row justify="space-around">
+      <v-btn
+       elevation="2"
+       @click="FadeString">
+       Fade In/Out
+      </v-btn>
+     </v-row>
+     <v-row justify="space-around">
+      <v-toolbar-title>
+       <span class="subhaeding">Effect Item</span>
+      </v-toolbar-title>
+     </v-row>
      <v-row justify="space-around">
       <v-btn
        elevation="2"
@@ -88,6 +122,7 @@
 <script>
 export default {
   data: () => ({
+    text: '',
     Line_Num: 1,
     Line_Time: 20,
     Line_Arrow: 0,
@@ -96,6 +131,30 @@ export default {
     rgb: { r: 0, g: 0, b: 255 }
   }),
   methods: {
+    SimpleString: function () {
+      this.axios.post('/api/show/SimpleString', {
+        Text: this.text,
+        Color: this.rgb
+      })
+        .then((res) => console.log(res.data))
+        .catch((e) => alert('AAA' + e.response.status))
+    },
+    FlashString: function () {
+      this.axios.post('/api/show/FlashString', {
+        Text: this.text,
+        Color: this.rgb
+      })
+        .then((res) => console.log(res.data))
+        .catch((e) => alert('AAA' + e.response.status))
+    },
+    FadeString: function () {
+      this.axios.post('/api/show/FadeString', {
+        Text: this.text,
+        Color: this.rgb
+      })
+        .then((res) => console.log(res.data))
+        .catch((e) => alert('AAA' + e.response.status))
+    },
     FlowLine: function () {
       this.axios.post('/api/show/FlowingLine', {
         Line_Num: this.Line_Num,

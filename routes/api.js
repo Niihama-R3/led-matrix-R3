@@ -6,6 +6,9 @@ const api_controller = require('../controllers/apiController.js');
 // Show
 router.post('/show/feed', api_controller.showNews);
 router.post('/show/text', api_controller.index);
+router.post('/show/SimpleString', api_controller.SimpleString);
+router.post('/show/FlashString', api_controller.FlashString);
+router.post('/show/FadeString', api_controller.FadeString);
 router.post('/show/FlowingLine', api_controller.FlowingLine);
 router.post('/show/FillingBoard', api_controller.FillingBoard);
 router.post('/show/ZoomCircle', api_controller.ZoomCircle);
