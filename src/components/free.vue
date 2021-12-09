@@ -4,6 +4,9 @@
    v-model="ImageFile"
    accept="image/*"
    filled
+   counter
+   @click:append-outer="SendImage"
+   append-outer-icon="mdi-send"
    label="Image File Input">
   </v-file-input>
   <img src="ImageFile">
@@ -31,18 +34,18 @@
 export default {
   data: () => ({
     ImageFile: [123],
+    ImageFile2: 123,
     Preview: false
   }),
-  async mounted () {
-    console.log('mounted')
-    this.$watch('ImageFile', function () {
-      this.axios.post('/api/update/ImageFile', {
-        ImageFile: this.ImageFile
+  methods: {
+    SendImage: function () {
+      console.log(this.ImageFile)
+      this.axios.post('/api/show/SendImage', {
+        Image: this.ImageFile2
       })
-        .then((res) => console.log('DoneImageFile' + res.data))
-        .catch((e) => alert(e))
-    })
-    this.loading = false
+        .then((res) => console.log(res.data))
+        .catch((e) => alert('AAA' + e.response.status))
+    }
   }
 }
 </script>

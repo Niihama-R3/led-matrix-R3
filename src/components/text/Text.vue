@@ -19,35 +19,30 @@
             hide-details
             hide-no-data>
           </v-autocomplete>
-          <v-radio-group
-           v-model="panelsize"
-           mandatory>
-           <v-radio
-            label="16"
-            value=16>
-           </v-radio>
-           <v-radio
-            label="32"
-            value=32>
-           </v-radio>
-          </v-radio-group>
-          <v-row align="center" class="mx-0">
-           <span class="display-3 font-weight-light" v-text="panelsize"></span>
-          </v-row>
           <v-card class="mx-auto my-12">
             <v-card-title>Settings</v-card-title>
             <v-card-text>
+             <v-toolbar-title>
+              <span class="subheading">Panel Size</span>
+              <v-spacer></v-spacer>
+             </v-toolbar-title>
+             <v-radio-group
+              v-model="panelsize"
+              mandatory>
+              <v-radio
+               label="16"
+               value=16>
+              </v-radio>
+              <v-radio
+               label="32"
+               value=32>
+              </v-radio>
+             </v-radio-group>
               <v-toolbar-title>
                 <span class="subheading">Scrool Speed</span>
                 <v-spacer></v-spacer>
               </v-toolbar-title>
-              <v-toolbar-title>
-                <span class="subheading">.</span>
-                <v-spacer></v-spacer>
-              </v-toolbar-title>
-              <v-row align="center" class="mx-0">
-                <span class="display-3 font-weight-light" v-text="speed"></span>
-              </v-row>
+              <span class="display-3 font-weight-light" v-text="speed"></span>
               <v-row>
                 <v-slider min="1" max="100" v-model="speed">
                   <template v-slot:prepend>
@@ -58,7 +53,6 @@
                   </template>
                 </v-slider>
                </v-row>
-
                <v-toolbar-title>
                 <span class="subheading">Loop</span>
                </v-toolbar-title>

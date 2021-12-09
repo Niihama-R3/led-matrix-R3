@@ -6,38 +6,36 @@
   <v-row justify="space-around">
    <v-responsive :aspect-ratio="13/9">
     <div>
-     <v-row justify="space-around">
-      <v-toolbar-title>
-       <span class="subhaeding">String Item</span>
-      </v-toolbar-title>
-     </v-row>
-     <v-row justify="space-around">
+     <v-radio-group v-model="Eff_Mode" mandatory>
+      <v-radio label="Simple String" value=0></v-radio>
+      <v-radio label="Flash String" value=1></v-radio>
+      <v-radio label="Fade In/Out String" value=2></v-radio>
+      <v-radio label="Flowing Line" color="red" value=3></v-radio>
+      <v-radio label="Filling Board" color="red" value=4></v-radio>
+      <v-radio label="Zoom Circle" color="red" value=5></v-radio>
+     </v-radio-group>
+     <v-row justify="space-around" v-if="Eff_Mode==0">
       <v-btn
        elevation="2"
        @click="SimpleString">
        Simple
       </v-btn>
      </v-row>
-     <v-row justify="space-around">
+     <v-row justify="space-around" v-if="Eff_Mode==1">
       <v-btn
        elevation="2"
        @click="FlashString">
        Flash
       </v-btn>
      </v-row>
-     <v-row justify="space-around">
+     <v-row justify="space-around" v-if="Eff_Mode==2">
       <v-btn
        elevation="2"
        @click="FadeString">
        Fade In/Out
       </v-btn>
      </v-row>
-     <v-row justify="space-around">
-      <v-toolbar-title>
-       <span class="subhaeding">Effect Item</span>
-      </v-toolbar-title>
-     </v-row>
-     <v-row justify="space-around">
+     <v-row justify="space-around" v-if="Eff_Mode==3">
       <v-btn
        elevation="2"
        @click="FlowLine">
@@ -70,7 +68,7 @@
        <v-slider min="20" max="50" v-model="Line_Time"></v-slider>
       </div>
      </v-row>
-     <v-row justify="space-around">
+     <v-row justify="space-around" v-if="Eff_Mode==4">
       <v-btn
        elevation="2"
        @click="FillBoard">
@@ -102,7 +100,7 @@
       </div>
      </v-row>
     </div>
-    <v-row justify="space-around">
+    <v-row justify="space-around" v-if="Eff_Mode==5">
      <v-btn
       elevation="2"
       @click="ZoomCircle">
@@ -122,7 +120,8 @@
 <script>
 export default {
   data: () => ({
-    text: '',
+    text: 'Any String',
+    Eff_Mode: 0,
     Line_Num: 1,
     Line_Time: 20,
     Line_Arrow: 0,

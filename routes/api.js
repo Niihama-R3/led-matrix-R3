@@ -12,6 +12,7 @@ router.post('/show/FadeString', api_controller.FadeString);
 router.post('/show/FlowingLine', api_controller.FlowingLine);
 router.post('/show/FillingBoard', api_controller.FillingBoard);
 router.post('/show/ZoomCircle', api_controller.ZoomCircle);
+router.post('/show/SendImage', api_controller.SendImage);
 
 // Update
 router.post('/update/colors', api_controller.colors);

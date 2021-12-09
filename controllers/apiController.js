@@ -422,7 +422,35 @@ async function main() {
         matrix.clear();
         matrix.update();
     }
-    
+
+    exports.SendImage = async function (req, res) {
+        if (interruptRejector(isAvailavle, res) == -1) { 
+            return -1;
+        }
+        matrix = new LedMatrix(16, 32, 1, 3, 50, 'adafruit-hat' );
+        let frame = req.body.Image;
+        let x = 8;
+        let y = 0;
+        let w = 16;
+        let h = 32;
+        matrix.clear();
+        matrix.drawLine(0, 0, 31, 15, 255, 255, 255);
+        //S.jikken
+        //let height, width, channels = frame.shape[3];
+        //res.send('Check point channels : ' + channels);
+        //let height, width, channels = frame.shape[:3];
+        //let frame2 = cv2.resize(frame, (32,16));
+        //let image = frame2[x:x+w, y:y+h];
+        //matrix.SetImage(image.convert('RGB'));
+        matrix.SetImage(0, 0, frame, 3 * 16 * 8, 16, 8, false);
+        //E.jikken
+        res.send('Check point');
+        matrix.update();
+        await sleep(3000);
+        matrix.clear();
+        matrix.update();
+    }
+
     exports.colors = function(req, res) {
         colors = req.body.colors;
         console.log(colors);

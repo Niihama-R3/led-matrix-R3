@@ -48,6 +48,11 @@
             <v-list-item-title>Effect</v-list-item-title>
           </v-list-item-content>
         </router-link>
+        <router-link tag="v-list-item" to="/edit" link>
+          <v-list-item-content>
+            <v-list-item-title>Edit</v-list-item-title>
+          </v-list-item-content>
+        </router-link>
         <router-link tag="v-list-item" to="/free" link>
           <v-list-item-content>
             <v-list-item-title>Free</v-list-item-title>
